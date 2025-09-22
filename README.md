@@ -1,59 +1,94 @@
 # pgd-geo-xai-nipost
+
+**Leveraging Explainable AI for Transparent Geolocation Services: A Case Study on Nigeria's Digital Postal Infrastructure**
+
+## Short description
+
+This repository contains materials, code, datasets and documentation for a PGD research project that (1) surveys global and national practice for AI in postal geolocation, (2) proposes an explainability-by-design framework for NIPOST geolocation services, and (3) implements a lightweight GeoXAI prototype (address-matching/geocoding) and evaluation.
+
+## Project goals
+
+* Produce a comparative literature & case-study report on postal AI and GeoXAI.
+* Design a practical XAI governance + technical framework for postal geolocation.
+* Implement a reproducible GeoXAI prototype with maps, SHAP-based explanations, and a mixed-method user evaluation.
+
+## Specific objectives
+
+1. **Landscape & comparative lessons** — systematic lit review and case studies; deliver a 20–30 page comparative report.
+2. **Explainability-by-design framework** — decision matrices, model guidance, data governance, and UI wireframes for explanations.
+3. **Prototype & evaluation** — code, interactive demo, user study report, and adoption thresholds.
+
+## Repo structure (suggested)
+
+```
+/data                 # raw and processed datasets (do NOT store private PII here)
+/notebooks            # exploratory notebooks and reproducible analyses
+/src                  # production-ready scripts and modules
+/results              # figures, maps, evaluation tables
+/docs                 # reports, framework documents, wireframes
+/tests                # test suites
+/.github              # issue templates, workflows
 README.md
-Nigeria’s Digital Postal Infrastructure is at a crossroads: while NIPOST is modernizing its services, there is little public evidence of deployed AI-driven geolocation systems or of explainability-by-design measures within national postal geolocation operations. Globally, postal and logistics actors are accelerating the use of AI for sorting, tracking and last-mile optimisation, and the Universal Postal Union has recently prototyped an AI agent to analyse postal development data — signalling that AI adoption across national postal networks is likely to increase. At the same time, academic and technical research in geospatial explainable AI (GeoXAI) shows both practical methods (e.g., SHAP visualizations on maps, map-based explanation interfaces) and technical challenges unique to geographic data (scale, topology, locality). If Nigeria adopts AI for postal geolocation without an explainability framework, decisions about address matching, routing, delay prediction and service prioritization risk being opaque to citizens, operators and regulators — potentially eroding trust, complicating oversight, and producing unintended socio-spatial biases. This study therefore investigates how Explainable AI (XAI) can be proactively integrated into Nigeria’s postal geolocation stack by synthesizing global lessons, proposing an XAI governance+technical framework, and building a GeoXAI prototype to demonstrate measurable benefits for transparency and adoption. 
-ResearchGate
-+3
-Business Insider
-+3
-Universal Postal Union
-+3
+LICENSE
+requirements.txt
+```
 
-Specific objectives (each one paragraph)
+## Getting started (developer)
 
-Objective 1 — Landscape & comparative lessons (literature + case studies):
-Conduct a systematic literature and case-study review mapping current AI uses in postal and last-mile logistics, and the state of GeoXAI research and prototypes. This objective will (a) document UPU and international postal initiatives and public-sector pilots, (b) compile private-sector last-mile AI practices relevant to postal geolocation, and (c) synthesise academic GeoXAI methods and documented challenges (e.g., SHAP visualizations, GeoXAI prototypes, geosocial issues). Deliverable: a 20–30 page comparative report that identifies technical, governance and user-facing lessons for NIPOST and highlights gaps where explainability is missing. 
-Universal Postal Union
-+2
-Business Insider
-+2
+1. Clone repo
 
-Objective 2 — Design an explainability-by-design framework for NIPOST geolocation services:
-Develop a practical XAI framework tailored for postal geolocation functions (address parsing/matching, geocoding, routing/ETA prediction, parcel-risk scoring) that specifies (i) model families and when to prefer interpretable models vs black-box + XAI post-hoc methods, (ii) concrete explanation techniques (local vs global explanations, SHAP/ICE, map-based visualizations), (iii) data governance and provenance controls, and (iv) stakeholder interfaces and regulatory alignment (how to present explanations to citizens, operators, and regulators). Deliverable: an actionable framework document with decision matrices and example explanation UI wireframes. This objective builds on GeoXAI methods and XAI policy guidance. 
-MDPI
-+2
-Royal Society
-+2
+```bash
+git clone https://github.com/fadebowaley/pgd-geo-xai-nipost.git
+cd pgd-geo-xai-nipost
+```
 
-Objective 3 — Prototype GeoXAI proof-of-concept and user evaluation:
-Implement a lightweight GeoXAI prototype (suggested pilot: address-matching + geocoding or route-ETA prediction) using open/available spatial data and XAI techniques (e.g., SHAP mapped overlays, explanation logs). Run a mixed-method evaluation with NIPOST staff and a sample of end-users to measure (a) interpretability/explanation satisfaction, (b) changes in trust and willingness to accept automated decisions, and (c) operational metrics (accuracy, ETA variance). Deliverables: working code repository, interactive explanation demo, user study report (quant + qual) with recommended thresholds for adoption. This objective is informed by GeoXAI prototypes and last-mile XAI applications in logistics research. 
-agile-giss.copernicus.org
-+2
-arXiv
-+2
+2. Create Python env and install
 
-Key materials I used / compiled (short annotated list — I can expand each into an annotated bibliography)
+```bash
+python -m venv .venv
+source .venv/bin/activate    # or .venv\Scripts\activate on Windows
+pip install -r requirements.txt
+```
 
-UPU — “UPU launches pilot postal development AI agent” (UPU news). 
-Universal Postal Union
+3. Jupyter notebooks
 
-State of the Postal Sector 2023 (UPU report — AI sections). 
-Universal Postal Union
+```bash
+pip install jupyterlab
+jupyter lab
+```
 
-Business Insider — overview of AI in last-mile logistics and industry trends. 
-Business Insider
+## Data sources (starter)
 
-MDPI — “Geospatial XAI: A Review” (GeoXAI methods & challenges). 
-MDPI
+* OpenStreetMap / Nominatim (Nigeria extracts via Geofabrik)
+* NIPOST public postcode/address pages (where available)
+* Sample crowdsourced address lists (anonymize before committing)
 
-Frontiers — “Visualization of explainable artificial intelligence for GeoAI” (map SHAP visualizations). 
-Frontiers
+## Prototype stack (suggested)
 
-Agile-GISS — Interactive web-based GeoXAI prototype paper. 
-agile-giss.copernicus.org
+* Python 3.10+, pandas, geopandas, geopy (Nominatim), scikit-learn/xgboost, shap, folium/kepler, matplotlib
 
-Research on integrating XAI into GeoAI (challenges summary). 
-ResearchGate
+## Ethics & data handling
 
-Parcel loss prediction / last-mile XAI examples (arXiv/research articles). 
-arXiv
-+1
+* Do **not** commit raw personally-identifiable addresses to this public repo. Store any PII-only datasets privately and add processing scripts in `/data` that transform/anonymize before analysis.
+* Include an `ethics.md` in `/docs` describing consent, anonymization and approval status.
+
+## Contribution & issues
+
+Please open issues for: `literature-review`, `data-ingest`, `prototype-geocode`, `explainability-visuals`, `user-study`, `writeup-intro`, `writeup-methods`.
+
+## Next steps (short-term)
+
+1. Add `requirements.txt` with minimal packages.
+2. Add `LICENSE` (MIT suggested) and `CODE_OF_CONDUCT.md`.
+3. Create an initial Google Sheet for literature and add 20 entries.
+4. Push a small `sample_addresses.csv` (anonymized) in `/data/sample/`.
+
+## Contact
+
+Project owner: 
+Ademola Adebowale 
+https://fadebowaley.xyz
+
+---
+
+*Generated as part of an interactive PGD research workshop — use the files and the issue checklist to drive the chapter-by-chapter work.*
